@@ -1,0 +1,658 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">8/8/2021</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">3:09:01 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc" class="file"><acronym title="C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc">C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">106</td></tr>
+</table>
+</td>
+</table><a name="IDPILEC3J51OOCNITJWWHXEZSSLMB2KYIGAMR1DYBUK55ZFE554GUF"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGUHPLS5MNTT1BFKXLE0EUANN3CTZVPERVHAR2OFMN3Y0SX42CPLJ">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKZBY0YEBZZL0BMV1GO1VT05NFHKUJAKLB1XMHNPID3EXDKXPSMGH">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDTCVSGABEHH4JEDN0MIMDP4OTWEE0TVBQKYSFMXFBLT5ULF04BBYI">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">17</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDRKQEVHT0MCFZFCKIWUPJFH2CPUUGSKEMYGBH1N4IJ4OVAAZEWSC">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDIAMI0QC3JBLZDAZNQ2K41CTQ3NWKW252TFNOIBCJQ5YRBDZS501M">Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID4LQL2331VPCLFJTKLFSORUN31EB5LIQXAQUYD2HEWGLK5WOSVVVC">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">16</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDHL4FBBFNUDQVC114HVPV2IWPWP3D1NKIEN33EYJU2A5ONVNAEXDH">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID3JQFSRKDS0XFNOPNYTCTD1C5CCGL2DXMQCGUUAC4W4QPYKADJKOG">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDHJZY3MZYJT10D3HRYXCEH3U4ADKKKJKWGQMKZ4EA3QN3I53GXDLM">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">17</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVEESDNEFFW3IGVH4XDGWW3X1S5ILTVRFDLLSMJQSRJFIDFD2MDD">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">56</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID0RY4F5VZI25AE3LB1ZP401DFVEGYBC00QW1TEIG411TNXAGT2ANE">Silk to Silk (Clearance=10mil) (Disabled)(All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDRRYVVYUL4LX1RSNQLFVWMWEXPALMKKJIQM1VRIIVASAOP2VX2PL">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDG2SNHFUBVOU1GLF3F1IYQFZOPDW5IJRABC44XFAVQ5PUQZQY4CC">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">106</td>
+</tr>
+</table><br><a name="IDTCVSGABEHH4JEDN0MIMDP4OTWEE0TVBQKYSFMXFBLT5ULF04BBYI"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1916.748mil|Location2.X=2006.575mil|Location1.Y=847.388mil|Location2.Y=1244.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1916.748mil|Location2.X=2006.575mil|Location1.Y=847.388mil|Location2.Y=1244.173mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_1 Between Pad R3-1(1937.48mil,877.963mil) on Top Layer And Pad C2-2(1980mil,1225.472mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1453.425mil|Location2.X=1640.575mil|Location1.Y=1046.787mil|Location2.Y=1089.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1453.425mil|Location2.X=1640.575mil|Location1.Y=1046.787mil|Location2.Y=1089.173mil|Absolute=True">Un-Routed Net Constraint: Net NetCADJ_1 Between Pad CADJ-1(1480mil,1070.472mil) on Top Layer And Pad RADJ-2(1610mil,1067.52mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1196.671mil|Location2.X=1446.244mil|Location1.Y=498.282mil|Location2.Y=792.976mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1196.671mil|Location2.X=1446.244mil|Location1.Y=498.282mil|Location2.Y=792.976mil|Absolute=True">Un-Routed Net Constraint: Net +12 Between Pad CIn-1(1305mil,547.538mil) on Top Layer And Pad U1-8(1433.386mil,758.465mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1510.106mil|Location2.X=1560.106mil|Location1.Y=638.622mil|Location2.Y=801.205mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1510.106mil|Location2.X=1560.106mil|Location1.Y=638.622mil|Location2.Y=801.205mil|Absolute=True">Un-Routed Net Constraint: Net NetQ1_1 Between Pad Rsnb-1(1533.15mil,770.63mil) on Top Layer And Pad Q1-1(1535.106mil,650.63mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3409.425mil|Location2.X=3470.575mil|Location1.Y=534.268mil|Location2.Y=683.252mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3409.425mil|Location2.X=3470.575mil|Location1.Y=534.268mil|Location2.Y=683.252mil|Absolute=True">Un-Routed Net Constraint: Net NetC2_1 Between Pad RFB1-2(3440mil,555mil) on Top Layer And Pad RFB2-2(3440mil,662.52mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1690.571mil|Location2.X=1708.577mil|Location1.Y=537.561mil|Location2.Y=552.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1690.571mil|Location2.X=1708.577mil|Location1.Y=537.561mil|Location2.Y=552.189mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on GND. Dead copper detected. Copper area is : 147.331 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1689.393mil|Location2.X=1708.069mil|Location1.Y=571.582mil|Location2.Y=585.668mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1689.393mil|Location2.X=1708.069mil|Location1.Y=571.582mil|Location2.Y=585.668mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on GND. Dead copper detected. Copper area is : 159.593 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1689.393mil|Location2.X=1708.069mil|Location1.Y=605.332mil|Location2.Y=619.418mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1689.393mil|Location2.X=1708.069mil|Location1.Y=605.332mil|Location2.Y=619.418mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on GND. Dead copper detected. Copper area is : 159.593 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1659.9mil|Location2.X=1678.577mil|Location1.Y=571.582mil|Location2.Y=585.668mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1659.9mil|Location2.X=1678.577mil|Location1.Y=571.582mil|Location2.Y=585.668mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on GND. Dead copper detected. Copper area is : 159.593 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1659.9mil|Location2.X=1678.577mil|Location1.Y=605.332mil|Location2.Y=619.418mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1659.9mil|Location2.X=1678.577mil|Location1.Y=605.332mil|Location2.Y=619.418mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on GND. Dead copper detected. Copper area is : 159.593 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1660.408mil|Location2.X=1679.331mil|Location1.Y=537.43mil|Location2.Y=552.32mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1660.408mil|Location2.X=1679.331mil|Location1.Y=537.43mil|Location2.Y=552.32mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on GND. Dead copper detected. Copper area is : 164.147 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1690.571mil|Location2.X=1708.577mil|Location1.Y=537.561mil|Location2.Y=552.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1690.571mil|Location2.X=1708.577mil|Location1.Y=537.561mil|Location2.Y=552.189mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on Vin/Vout. Dead copper detected. Copper area is : 147.331 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1689.393mil|Location2.X=1708.069mil|Location1.Y=571.582mil|Location2.Y=585.668mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1689.393mil|Location2.X=1708.069mil|Location1.Y=571.582mil|Location2.Y=585.668mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on Vin/Vout. Dead copper detected. Copper area is : 159.593 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1689.393mil|Location2.X=1708.069mil|Location1.Y=605.332mil|Location2.Y=619.418mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1689.393mil|Location2.X=1708.069mil|Location1.Y=605.332mil|Location2.Y=619.418mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on Vin/Vout. Dead copper detected. Copper area is : 159.593 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1659.9mil|Location2.X=1678.577mil|Location1.Y=571.582mil|Location2.Y=585.668mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1659.9mil|Location2.X=1678.577mil|Location1.Y=571.582mil|Location2.Y=585.668mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on Vin/Vout. Dead copper detected. Copper area is : 159.593 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1659.9mil|Location2.X=1678.577mil|Location1.Y=605.332mil|Location2.Y=619.418mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1659.9mil|Location2.X=1678.577mil|Location1.Y=605.332mil|Location2.Y=619.418mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on Vin/Vout. Dead copper detected. Copper area is : 159.593 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1660.408mil|Location2.X=1679.331mil|Location1.Y=537.43mil|Location2.Y=552.32mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1660.408mil|Location2.X=1679.331mil|Location1.Y=537.43mil|Location2.Y=552.32mil|Absolute=True">Isolated copper: Split Plane  (NetCsnb_1) on Vin/Vout. Dead copper detected. Copper area is : 164.147 sq. mils</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID4LQL2331VPCLFJTKLFSORUN31EB5LIQXAQUYD2HEWGLK5WOSVVVC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1619.571mil|Location2.X=1689.414mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1619.571mil|Location2.X=1689.414mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True">Starved Thermal on GND: Via (1654.492mil,561.75mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1619.571mil|Location2.X=1689.414mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1619.571mil|Location2.X=1689.414mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True">Starved Thermal on Vin/Vout: Via (1654.492mil,561.75mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1619.571mil|Location2.X=1689.414mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1619.571mil|Location2.X=1689.414mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True">Starved Thermal on GND: Via (1654.492mil,595.5mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1619.571mil|Location2.X=1689.414mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1619.571mil|Location2.X=1689.414mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True">Starved Thermal on Vin/Vout: Via (1654.492mil,595.5mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True">Starved Thermal on GND: Via (1683.985mil,561.75mil) from Top Layer to Bottom Layer. Blocked 4 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True">Starved Thermal on Vin/Vout: Via (1683.985mil,561.75mil) from Top Layer to Bottom Layer. Blocked 4 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True">Starved Thermal on GND: Via (1683.985mil,595.5mil) from Top Layer to Bottom Layer. Blocked 4 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True">Starved Thermal on Vin/Vout: Via (1683.985mil,595.5mil) from Top Layer to Bottom Layer. Blocked 4 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=594.329mil|Location2.Y=664.171mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=594.329mil|Location2.Y=664.171mil|Absolute=True">Starved Thermal on GND: Via (1683.985mil,629.25mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=594.329mil|Location2.Y=664.171mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.064mil|Location2.X=1718.906mil|Location1.Y=594.329mil|Location2.Y=664.171mil|Absolute=True">Starved Thermal on Vin/Vout: Via (1683.985mil,629.25mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1650.079mil|Location2.X=1719.921mil|Location1.Y=493.079mil|Location2.Y=562.921mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1650.079mil|Location2.X=1719.921mil|Location1.Y=493.079mil|Location2.Y=562.921mil|Absolute=True">Starved Thermal on GND: Via (1685mil,528mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1650.079mil|Location2.X=1719.921mil|Location1.Y=493.079mil|Location2.Y=562.921mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1650.079mil|Location2.X=1719.921mil|Location1.Y=493.079mil|Location2.Y=562.921mil|Absolute=True">Starved Thermal on Vin/Vout: Via (1685mil,528mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.556mil|Location2.X=1748.398mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.556mil|Location2.X=1748.398mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True">Starved Thermal on GND: Via (1713.477mil,561.75mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.556mil|Location2.X=1748.398mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.556mil|Location2.X=1748.398mil|Location1.Y=526.829mil|Location2.Y=596.671mil|Absolute=True">Starved Thermal on Vin/Vout: Via (1713.477mil,561.75mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.556mil|Location2.X=1748.398mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.556mil|Location2.X=1748.398mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True">Starved Thermal on GND: Via (1713.477mil,595.5mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.556mil|Location2.X=1748.398mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.556mil|Location2.X=1748.398mil|Location1.Y=560.579mil|Location2.Y=630.421mil|Absolute=True">Starved Thermal on Vin/Vout: Via (1713.477mil,595.5mil) from Top Layer to Bottom Layer. Blocked 2 out of 4 entries.</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDHJZY3MZYJT10D3HRYXCEH3U4ADKKKJKWGQMKZ4EA3QN3I53GXDLM"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1648.867mil|Location2.X=1660.117mil|Location1.Y=573mil|Location2.Y=584.25mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1648.867mil|Location2.X=1660.117mil|Location1.Y=573mil|Location2.Y=584.25mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.065mil &lt; 10mil) Between Via (1654.492mil,561.75mil) from Top Layer to Bottom Layer And Via (1654.492mil,595.5mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [6.065mil] / [Bottom Solder] Mask Sliver [6.065mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.621mil|Location2.X=1660.871mil|Location1.Y=539.25mil|Location2.Y=550.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1649.621mil|Location2.X=1660.871mil|Location1.Y=539.25mil|Location2.Y=550.5mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.099mil &lt; 10mil) Between Via (1654.492mil,561.75mil) from Top Layer to Bottom Layer And Via (1656mil,528mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [6.099mil] / [Bottom Solder] Mask Sliver [6.099mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1663.614mil|Location2.X=1674.864mil|Location1.Y=556.125mil|Location2.Y=567.375mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1663.614mil|Location2.X=1674.864mil|Location1.Y=556.125mil|Location2.Y=567.375mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.807mil &lt; 10mil) Between Via (1654.492mil,561.75mil) from Top Layer to Bottom Layer And Via (1683.985mil,561.75mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [1.807mil] / [Bottom Solder] Mask Sliver [1.807mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1648.867mil|Location2.X=1660.117mil|Location1.Y=606.75mil|Location2.Y=618mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1648.867mil|Location2.X=1660.117mil|Location1.Y=606.75mil|Location2.Y=618mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.065mil &lt; 10mil) Between Via (1654.492mil,595.5mil) from Top Layer to Bottom Layer And Via (1654.492mil,629.25mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [6.065mil] / [Bottom Solder] Mask Sliver [6.065mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1663.614mil|Location2.X=1674.864mil|Location1.Y=589.875mil|Location2.Y=601.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1663.614mil|Location2.X=1674.864mil|Location1.Y=589.875mil|Location2.Y=601.125mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.807mil &lt; 10mil) Between Via (1654.492mil,595.5mil) from Top Layer to Bottom Layer And Via (1683.985mil,595.5mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [1.807mil] / [Bottom Solder] Mask Sliver [1.807mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1663.614mil|Location2.X=1674.864mil|Location1.Y=623.625mil|Location2.Y=634.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1663.614mil|Location2.X=1674.864mil|Location1.Y=623.625mil|Location2.Y=634.875mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.807mil &lt; 10mil) Between Via (1654.492mil,629.25mil) from Top Layer to Bottom Layer And Via (1683.985mil,629.25mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [1.807mil] / [Bottom Solder] Mask Sliver [1.807mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.875mil|Location2.X=1676.125mil|Location1.Y=522.375mil|Location2.Y=533.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1664.875mil|Location2.X=1676.125mil|Location1.Y=522.375mil|Location2.Y=533.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.315mil &lt; 10mil) Between Via (1656mil,528mil) from Top Layer to Bottom Layer And Via (1685mil,528mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [1.315mil] / [Bottom Solder] Mask Sliver [1.315mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.36mil|Location2.X=1689.61mil|Location1.Y=573mil|Location2.Y=584.25mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.36mil|Location2.X=1689.61mil|Location1.Y=573mil|Location2.Y=584.25mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.065mil &lt; 10mil) Between Via (1683.985mil,561.75mil) from Top Layer to Bottom Layer And Via (1683.985mil,595.5mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [6.065mil] / [Bottom Solder] Mask Sliver [6.065mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.867mil|Location2.X=1690.117mil|Location1.Y=539.25mil|Location2.Y=550.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.867mil|Location2.X=1690.117mil|Location1.Y=539.25mil|Location2.Y=550.5mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.08mil &lt; 10mil) Between Via (1683.985mil,561.75mil) from Top Layer to Bottom Layer And Via (1685mil,528mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [6.08mil] / [Bottom Solder] Mask Sliver [6.08mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1693.106mil|Location2.X=1704.356mil|Location1.Y=556.125mil|Location2.Y=567.375mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1693.106mil|Location2.X=1704.356mil|Location1.Y=556.125mil|Location2.Y=567.375mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.807mil &lt; 10mil) Between Via (1683.985mil,561.75mil) from Top Layer to Bottom Layer And Via (1713.477mil,561.75mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [1.807mil] / [Bottom Solder] Mask Sliver [1.807mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.36mil|Location2.X=1689.61mil|Location1.Y=606.75mil|Location2.Y=618mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1678.36mil|Location2.X=1689.61mil|Location1.Y=606.75mil|Location2.Y=618mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.065mil &lt; 10mil) Between Via (1683.985mil,595.5mil) from Top Layer to Bottom Layer And Via (1683.985mil,629.25mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [6.065mil] / [Bottom Solder] Mask Sliver [6.065mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1693.106mil|Location2.X=1704.356mil|Location1.Y=589.875mil|Location2.Y=601.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1693.106mil|Location2.X=1704.356mil|Location1.Y=589.875mil|Location2.Y=601.125mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.807mil &lt; 10mil) Between Via (1683.985mil,595.5mil) from Top Layer to Bottom Layer And Via (1713.477mil,595.5mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [1.807mil] / [Bottom Solder] Mask Sliver [1.807mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1693.106mil|Location2.X=1704.356mil|Location1.Y=623.625mil|Location2.Y=634.875mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1693.106mil|Location2.X=1704.356mil|Location1.Y=623.625mil|Location2.Y=634.875mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.807mil &lt; 10mil) Between Via (1683.985mil,629.25mil) from Top Layer to Bottom Layer And Via (1713.477mil,629.25mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [1.807mil] / [Bottom Solder] Mask Sliver [1.807mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1694.875mil|Location2.X=1706.125mil|Location1.Y=522.375mil|Location2.Y=533.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1694.875mil|Location2.X=1706.125mil|Location1.Y=522.375mil|Location2.Y=533.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.315mil &lt; 10mil) Between Via (1685mil,528mil) from Top Layer to Bottom Layer And Via (1716mil,528mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [3.315mil] / [Bottom Solder] Mask Sliver [3.315mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1707.852mil|Location2.X=1719.102mil|Location1.Y=573mil|Location2.Y=584.25mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1707.852mil|Location2.X=1719.102mil|Location1.Y=573mil|Location2.Y=584.25mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.065mil &lt; 10mil) Between Via (1713.477mil,561.75mil) from Top Layer to Bottom Layer And Via (1713.477mil,595.5mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [6.065mil] / [Bottom Solder] Mask Sliver [6.065mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1709.113mil|Location2.X=1720.363mil|Location1.Y=539.25mil|Location2.Y=550.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1709.113mil|Location2.X=1720.363mil|Location1.Y=539.25mil|Location2.Y=550.5mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.159mil &lt; 10mil) Between Via (1713.477mil,561.75mil) from Top Layer to Bottom Layer And Via (1716mil,528mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [6.159mil] / [Bottom Solder] Mask Sliver [6.159mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1707.852mil|Location2.X=1719.102mil|Location1.Y=606.75mil|Location2.Y=618mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1707.852mil|Location2.X=1719.102mil|Location1.Y=606.75mil|Location2.Y=618mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.065mil &lt; 10mil) Between Via (1713.477mil,595.5mil) from Top Layer to Bottom Layer And Via (1713.477mil,629.25mil) from Top Layer to Bottom Layer [Top Solder] Mask Sliver [6.065mil] / [Bottom Solder] Mask Sliver [6.065mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDVEESDNEFFW3IGVH4XDGWW3X1S5ILTVRFDLLSMJQSRJFIDFD2MDD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2078.781mil|Location2.X=2090.031mil|Location1.Y=879.743mil|Location2.Y=890.993mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2078.781mil|Location2.X=2090.031mil|Location1.Y=879.743mil|Location2.Y=890.993mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.411mil &lt; 10mil) Between Pad C1-1(2065mil,890.076mil) on Top Layer And Text "C1" (2103.627mil,876.794mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.411mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2099.024mil|Location2.X=2110.274mil|Location1.Y=879.427mil|Location2.Y=890.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2099.024mil|Location2.X=2110.274mil|Location1.Y=879.427mil|Location2.Y=890.677mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.412mil &lt; 10mil) Between Pad C1-2(2124.055mil,890.076mil) on Top Layer And Text "C1" (2103.627mil,876.794mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.412mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1967.997mil|Location2.X=1979.247mil|Location1.Y=1259.496mil|Location2.Y=1270.746mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1967.997mil|Location2.X=1979.247mil|Location1.Y=1259.496mil|Location2.Y=1270.746mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.411mil &lt; 10mil) Between Pad C2-1(1980mil,1284.528mil) on Top Layer And Text "C2" (1965.049mil,1245.9mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.411mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1967.682mil|Location2.X=1978.932mil|Location1.Y=1239.254mil|Location2.Y=1250.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1967.682mil|Location2.X=1978.932mil|Location1.Y=1239.254mil|Location2.Y=1250.504mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.411mil &lt; 10mil) Between Pad C2-2(1980mil,1225.472mil) on Top Layer And Text "C2" (1965.049mil,1245.9mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.411mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=452.905mil|Location2.X=464.155mil|Location1.Y=518.236mil|Location2.Y=529.486mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=452.905mil|Location2.X=464.155mil|Location1.Y=518.236mil|Location2.Y=529.486mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.892mil &lt; 10mil) Between Pad C3-1(465mil,549.961mil) on Top Layer And Text "C3" (449.956mil,500.9mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.892mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=767.945mil|Location2.X=779.195mil|Location1.Y=520.736mil|Location2.Y=531.986mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=767.945mil|Location2.X=779.195mil|Location1.Y=520.736mil|Location2.Y=531.986mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.892mil &lt; 10mil) Between Pad C4-1(772.629mil,549.961mil) on Top Layer And Text "C4" (764.996mil,505.9mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.892mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=617.84mil|Location2.X=629.09mil|Location1.Y=520.736mil|Location2.Y=531.986mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=617.84mil|Location2.X=629.09mil|Location1.Y=520.736mil|Location2.Y=531.986mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.892mil &lt; 10mil) Between Pad C5-1(618.814mil,549.961mil) on Top Layer And Text "C5" (614.891mil,505.9mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.892mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=917.905mil|Location2.X=929.155mil|Location1.Y=518.236mil|Location2.Y=529.486mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=917.905mil|Location2.X=929.155mil|Location1.Y=518.236mil|Location2.Y=529.486mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.892mil &lt; 10mil) Between Pad C6-1(926.443mil,549.961mil) on Top Layer And Text "C6" (914.956mil,500.9mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.892mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1451.047mil|Location2.X=1462.297mil|Location1.Y=1084.254mil|Location2.Y=1095.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1451.047mil|Location2.X=1462.297mil|Location1.Y=1084.254mil|Location2.Y=1095.504mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.411mil &lt; 10mil) Between Pad CADJ-1(1480mil,1070.472mil) on Top Layer And Text "CADJ" (1448.414mil,1090.9mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.411mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1451.362mil|Location2.X=1462.612mil|Location1.Y=1104.496mil|Location2.Y=1115.746mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1451.362mil|Location2.X=1462.612mil|Location1.Y=1104.496mil|Location2.Y=1115.746mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.411mil &lt; 10mil) Between Pad CADJ-2(1480mil,1129.528mil) on Top Layer And Text "CADJ" (1448.414mil,1090.9mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.411mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1191.046mil|Location2.X=1202.296mil|Location1.Y=488.72mil|Location2.Y=499.97mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1191.046mil|Location2.X=1202.296mil|Location1.Y=488.72mil|Location2.Y=499.97mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad CIn-1(1305mil,547.538mil) on Top Layer And Track (1196.671mil,423.529mil)(1196.671mil,486.471mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1407.704mil|Location2.X=1418.954mil|Location1.Y=488.72mil|Location2.Y=499.97mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1407.704mil|Location2.X=1418.954mil|Location1.Y=488.72mil|Location2.Y=499.97mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad CIn-1(1305mil,547.538mil) on Top Layer And Track (1413.329mil,423.529mil)(1413.329mil,486.471mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1191.046mil|Location2.X=1202.296mil|Location1.Y=410.03mil|Location2.Y=421.28mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1191.046mil|Location2.X=1202.296mil|Location1.Y=410.03mil|Location2.Y=421.28mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad CIn-2(1305mil,362.462mil) on Top Layer And Track (1196.671mil,423.529mil)(1196.671mil,486.471mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1407.704mil|Location2.X=1418.954mil|Location1.Y=410.03mil|Location2.Y=421.28mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1407.704mil|Location2.X=1418.954mil|Location1.Y=410.03mil|Location2.Y=421.28mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad CIn-2(1305mil,362.462mil) on Top Layer And Track (1413.329mil,423.529mil)(1413.329mil,486.471mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1715.126mil|Location2.X=1726.376mil|Location1.Y=744.741mil|Location2.Y=755.991mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1715.126mil|Location2.X=1726.376mil|Location1.Y=744.741mil|Location2.Y=755.991mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.412mil &lt; 10mil) Between Pad Csnb-1(1740.158mil,770.63mil) on Top Layer And Text "Csnb" (1719.73mil,742.108mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.412mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1694.884mil|Location2.X=1706.134mil|Location1.Y=745.056mil|Location2.Y=756.306mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1694.884mil|Location2.X=1706.134mil|Location1.Y=745.056mil|Location2.Y=756.306mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.411mil &lt; 10mil) Between Pad Csnb-2(1681.102mil,770.63mil) on Top Layer And Text "Csnb" (1719.73mil,742.108mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.411mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1194.254mil|Location2.X=1205.504mil|Location1.Y=868.062mil|Location2.Y=879.312mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1194.254mil|Location2.X=1205.504mil|Location1.Y=868.062mil|Location2.Y=879.312mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.411mil &lt; 10mil) Between Pad CVCC-1(1180.472mil,900mil) on Top Layer And Text "CVCC" (1219.1mil,865.113mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.411mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1214.496mil|Location2.X=1225.746mil|Location1.Y=867.8mil|Location2.Y=879.05mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1214.496mil|Location2.X=1225.746mil|Location1.Y=867.8mil|Location2.Y=879.05mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.412mil &lt; 10mil) Between Pad CVCC-2(1239.528mil,900mil) on Top Layer And Text "CVCC" (1219.1mil,865.113mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.412mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1692.931mil|Location2.X=1704.181mil|Location1.Y=201.307mil|Location2.Y=212.557mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1692.931mil|Location2.X=1704.181mil|Location1.Y=201.307mil|Location2.Y=212.557mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.325mil &lt; 10mil) Between Pad D1-3(1685.63mil,300.63mil) on Top Layer And Text "D1" (1672.704mil,186.491mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.325mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1555.207mil|Location2.X=1566.457mil|Location1.Y=655.531mil|Location2.Y=666.781mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1555.207mil|Location2.X=1566.457mil|Location1.Y=655.531mil|Location2.Y=666.781mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.454mil &lt; 10mil) Between Pad Q1-1(1535.106mil,650.63mil) on Top Layer And Text "Q1" (1561.56mil,652.082mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.454mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1911.897mil|Location2.X=1923.147mil|Location1.Y=880.622mil|Location2.Y=891.872mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1911.897mil|Location2.X=1923.147mil|Location1.Y=880.622mil|Location2.Y=891.872mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.451mil &lt; 10mil) Between Pad R3-1(1937.48mil,877.963mil) on Top Layer And Text "R3" (1913.981mil,863.288mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.451mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1911.186mil|Location2.X=1922.436mil|Location1.Y=849.7mil|Location2.Y=860.95mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1911.186mil|Location2.X=1922.436mil|Location1.Y=849.7mil|Location2.Y=860.95mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad R3-1(1937.48mil,877.963mil) on Top Layer And Track (1901.063mil,855.325mil)(1908.937mil,855.325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1911.186mil|Location2.X=1922.436mil|Location1.Y=894.976mil|Location2.Y=906.226mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1911.186mil|Location2.X=1922.436mil|Location1.Y=894.976mil|Location2.Y=906.226mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad R3-1(1937.48mil,877.963mil) on Top Layer And Track (1901.063mil,900.601mil)(1908.937mil,900.601mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1886.852mil|Location2.X=1898.102mil|Location1.Y=880.386mil|Location2.Y=891.636mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1886.852mil|Location2.X=1898.102mil|Location1.Y=880.386mil|Location2.Y=891.636mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.451mil &lt; 10mil) Between Pad R3-2(1872.52mil,877.963mil) on Top Layer And Text "R3" (1913.981mil,863.288mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.451mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1887.564mil|Location2.X=1898.814mil|Location1.Y=849.7mil|Location2.Y=860.95mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1887.564mil|Location2.X=1898.814mil|Location1.Y=849.7mil|Location2.Y=860.95mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad R3-2(1872.52mil,877.963mil) on Top Layer And Track (1901.063mil,855.325mil)(1908.937mil,855.325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1887.564mil|Location2.X=1898.814mil|Location1.Y=894.976mil|Location2.Y=906.226mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1887.564mil|Location2.X=1898.814mil|Location1.Y=894.976mil|Location2.Y=906.226mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad R3-2(1872.52mil,877.963mil) on Top Layer And Track (1901.063mil,900.601mil)(1908.937mil,900.601mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1581.599mil|Location2.X=1592.849mil|Location1.Y=1106.878mil|Location2.Y=1118.128mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1581.599mil|Location2.X=1592.849mil|Location1.Y=1106.878mil|Location2.Y=1118.128mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.49mil &lt; 10mil) Between Pad RADJ-1(1610mil,1132.48mil) on Top Layer And Text "RADJ" (1578.782mil,1091.058mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.49mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1581.737mil|Location2.X=1592.987mil|Location1.Y=1106.186mil|Location2.Y=1117.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1581.737mil|Location2.X=1592.987mil|Location1.Y=1106.186mil|Location2.Y=1117.436mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RADJ-1(1610mil,1132.48mil) on Top Layer And Track (1587.362mil,1096.063mil)(1587.362mil,1103.937mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.013mil|Location2.X=1638.263mil|Location1.Y=1106.186mil|Location2.Y=1117.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.013mil|Location2.X=1638.263mil|Location1.Y=1106.186mil|Location2.Y=1117.436mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RADJ-1(1610mil,1132.48mil) on Top Layer And Track (1632.638mil,1096.063mil)(1632.638mil,1103.937mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1630.465mil|Location2.X=1641.715mil|Location1.Y=1081.872mil|Location2.Y=1093.122mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1630.465mil|Location2.X=1641.715mil|Location1.Y=1081.872mil|Location2.Y=1093.122mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.49mil &lt; 10mil) Between Pad RADJ-2(1610mil,1067.52mil) on Top Layer And Text "RADJ" (1578.782mil,1091.058mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.49mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1581.737mil|Location2.X=1592.987mil|Location1.Y=1082.564mil|Location2.Y=1093.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1581.737mil|Location2.X=1592.987mil|Location1.Y=1082.564mil|Location2.Y=1093.814mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RADJ-2(1610mil,1067.52mil) on Top Layer And Track (1587.362mil,1096.063mil)(1587.362mil,1103.937mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.013mil|Location2.X=1638.263mil|Location1.Y=1082.564mil|Location2.Y=1093.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.013mil|Location2.X=1638.263mil|Location1.Y=1082.564mil|Location2.Y=1093.814mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RADJ-2(1610mil,1067.52mil) on Top Layer And Track (1632.638mil,1096.063mil)(1632.638mil,1103.937mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3412.628mil|Location2.X=3423.878mil|Location1.Y=505.691mil|Location2.Y=516.941mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3412.628mil|Location2.X=3423.878mil|Location1.Y=505.691mil|Location2.Y=516.941mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.089mil &lt; 10mil) Between Pad RFB1-1(3440mil,490.039mil) on Top Layer And Text "RFB1" (3415.833mil,515.861mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.089mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3411.737mil|Location2.X=3422.987mil|Location1.Y=505.084mil|Location2.Y=516.334mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3411.737mil|Location2.X=3422.987mil|Location1.Y=505.084mil|Location2.Y=516.334mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RFB1-1(3440mil,490.039mil) on Top Layer And Track (3417.362mil,518.583mil)(3417.362mil,526.457mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3457.013mil|Location2.X=3468.263mil|Location1.Y=505.084mil|Location2.Y=516.334mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3457.013mil|Location2.X=3468.263mil|Location1.Y=505.084mil|Location2.Y=516.334mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RFB1-1(3440mil,490.039mil) on Top Layer And Track (3462.638mil,518.583mil)(3462.638mil,526.457mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3410.208mil|Location2.X=3421.458mil|Location1.Y=530.539mil|Location2.Y=541.789mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3410.208mil|Location2.X=3421.458mil|Location1.Y=530.539mil|Location2.Y=541.789mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.207mil &lt; 10mil) Between Pad RFB1-2(3440mil,555mil) on Top Layer And Text "RFB1" (3415.833mil,515.861mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.207mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3411.737mil|Location2.X=3422.987mil|Location1.Y=528.706mil|Location2.Y=539.956mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3411.737mil|Location2.X=3422.987mil|Location1.Y=528.706mil|Location2.Y=539.956mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RFB1-2(3440mil,555mil) on Top Layer And Track (3417.362mil,518.583mil)(3417.362mil,526.457mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3457.013mil|Location2.X=3468.263mil|Location1.Y=528.706mil|Location2.Y=539.956mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3457.013mil|Location2.X=3468.263mil|Location1.Y=528.706mil|Location2.Y=539.956mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RFB1-2(3440mil,555mil) on Top Layer And Track (3462.638mil,518.583mil)(3462.638mil,526.457mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3459.478mil|Location2.X=3470.728mil|Location1.Y=701.819mil|Location2.Y=713.069mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3459.478mil|Location2.X=3470.728mil|Location1.Y=701.819mil|Location2.Y=713.069mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.609mil &lt; 10mil) Between Pad RFB2-1(3440mil,727.48mil) on Top Layer And Text "RFB2" (3409.163mil,685.861mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.609mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3411.737mil|Location2.X=3422.987mil|Location1.Y=701.186mil|Location2.Y=712.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3411.737mil|Location2.X=3422.987mil|Location1.Y=701.186mil|Location2.Y=712.436mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RFB2-1(3440mil,727.48mil) on Top Layer And Track (3417.362mil,691.063mil)(3417.362mil,698.937mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3457.013mil|Location2.X=3468.263mil|Location1.Y=701.186mil|Location2.Y=712.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3457.013mil|Location2.X=3468.263mil|Location1.Y=701.186mil|Location2.Y=712.436mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RFB2-1(3440mil,727.48mil) on Top Layer And Track (3462.638mil,691.063mil)(3462.638mil,698.937mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3419.529mil|Location2.X=3430.779mil|Location1.Y=676.931mil|Location2.Y=688.181mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3419.529mil|Location2.X=3430.779mil|Location1.Y=676.931mil|Location2.Y=688.181mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.609mil &lt; 10mil) Between Pad RFB2-2(3440mil,662.52mil) on Top Layer And Text "RFB2" (3409.163mil,685.861mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.609mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3411.737mil|Location2.X=3422.987mil|Location1.Y=677.564mil|Location2.Y=688.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3411.737mil|Location2.X=3422.987mil|Location1.Y=677.564mil|Location2.Y=688.814mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RFB2-2(3440mil,662.52mil) on Top Layer And Track (3417.362mil,691.063mil)(3417.362mil,698.937mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3457.013mil|Location2.X=3468.263mil|Location1.Y=677.564mil|Location2.Y=688.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3457.013mil|Location2.X=3468.263mil|Location1.Y=677.564mil|Location2.Y=688.814mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad RFB2-2(3440mil,662.52mil) on Top Layer And Track (3462.638mil,691.063mil)(3462.638mil,698.937mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1547.509mil|Location2.X=1558.759mil|Location1.Y=750.293mil|Location2.Y=761.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1547.509mil|Location2.X=1558.759mil|Location1.Y=750.293mil|Location2.Y=761.543mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.503mil &lt; 10mil) Between Pad Rsnb-1(1533.15mil,770.63mil) on Top Layer And Text "Rsnb" (1574.585mil,747.476mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.503mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1548.194mil|Location2.X=1559.444mil|Location1.Y=742.367mil|Location2.Y=753.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1548.194mil|Location2.X=1559.444mil|Location1.Y=742.367mil|Location2.Y=753.617mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad Rsnb-1(1533.15mil,770.63mil) on Top Layer And Track (1561.693mil,747.992mil)(1569.567mil,747.992mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1548.194mil|Location2.X=1559.444mil|Location1.Y=787.643mil|Location2.Y=798.893mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1548.194mil|Location2.X=1559.444mil|Location1.Y=787.643mil|Location2.Y=798.893mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad Rsnb-1(1533.15mil,770.63mil) on Top Layer And Track (1561.693mil,793.268mil)(1569.567mil,793.268mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1572.501mil|Location2.X=1583.751mil|Location1.Y=764.627mil|Location2.Y=775.877mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1572.501mil|Location2.X=1583.751mil|Location1.Y=764.627mil|Location2.Y=775.877mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.504mil &lt; 10mil) Between Pad Rsnb-2(1598.11mil,770.63mil) on Top Layer And Text "Rsnb" (1574.585mil,747.476mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.504mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1571.816mil|Location2.X=1583.066mil|Location1.Y=742.367mil|Location2.Y=753.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1571.816mil|Location2.X=1583.066mil|Location1.Y=742.367mil|Location2.Y=753.617mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad Rsnb-2(1598.11mil,770.63mil) on Top Layer And Track (1561.693mil,747.992mil)(1569.567mil,747.992mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1571.816mil|Location2.X=1583.066mil|Location1.Y=787.643mil|Location2.Y=798.893mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1571.816mil|Location2.X=1583.066mil|Location1.Y=787.643mil|Location2.Y=798.893mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad Rsnb-2(1598.11mil,770.63mil) on Top Layer And Track (1561.693mil,793.268mil)(1569.567mil,793.268mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1291.905mil|Location2.X=1303.155mil|Location1.Y=1079.696mil|Location2.Y=1090.946mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1291.905mil|Location2.X=1303.155mil|Location1.Y=1079.696mil|Location2.Y=1090.946mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.556mil &lt; 10mil) Between Pad Rt-1(1277.52mil,1095mil) on Top Layer And Text "Rt" (1300.992mil,1106.598mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.556mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1292.564mil|Location2.X=1303.814mil|Location1.Y=1066.737mil|Location2.Y=1077.987mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1292.564mil|Location2.X=1303.814mil|Location1.Y=1066.737mil|Location2.Y=1077.987mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad Rt-1(1277.52mil,1095mil) on Top Layer And Track (1306.063mil,1072.362mil)(1313.937mil,1072.362mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1292.564mil|Location2.X=1303.814mil|Location1.Y=1112.013mil|Location2.Y=1123.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1292.564mil|Location2.X=1303.814mil|Location1.Y=1112.013mil|Location2.Y=1123.263mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad Rt-1(1277.52mil,1095mil) on Top Layer And Track (1306.063mil,1117.638mil)(1313.937mil,1117.638mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1316.845mil|Location2.X=1328.095mil|Location1.Y=1100.973mil|Location2.Y=1112.223mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1316.845mil|Location2.X=1328.095mil|Location1.Y=1100.973mil|Location2.Y=1112.223mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.556mil &lt; 10mil) Between Pad Rt-2(1342.48mil,1095mil) on Top Layer And Text "Rt" (1300.992mil,1106.598mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.556mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1316.186mil|Location2.X=1327.436mil|Location1.Y=1066.737mil|Location2.Y=1077.987mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1316.186mil|Location2.X=1327.436mil|Location1.Y=1066.737mil|Location2.Y=1077.987mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad Rt-2(1342.48mil,1095mil) on Top Layer And Track (1306.063mil,1072.362mil)(1313.937mil,1072.362mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1316.186mil|Location2.X=1327.436mil|Location1.Y=1112.013mil|Location2.Y=1123.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Mohit\Documents\Github Projects\Dc-Dc Converters\Dc-Dc Converters.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1316.186mil|Location2.X=1327.436mil|Location1.Y=1112.013mil|Location2.Y=1123.263mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad Rt-2(1342.48mil,1095mil) on Top Layer And Track (1306.063mil,1117.638mil)(1313.937mil,1117.638mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
